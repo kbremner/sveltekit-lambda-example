@@ -1,0 +1,28 @@
+{
+  "name": "infra",
+  "version": "0.1.0",
+  "bin": "bin/infra.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "dependencies": {
+    "@aws-cdk/assets": "^1.101.0",
+    "@aws-cdk/aws-apigateway": "^1.101.0",
+    "@aws-cdk/aws-apigatewayv2": "^1.101.0",
+    "@aws-cdk/aws-apigatewayv2-integrations": "^1.101.0",
+    "@aws-cdk/aws-cloudfront": "^1.101.0",
+    "@aws-cdk/aws-cloudfront-origins": "^1.101.0",
+    "@aws-cdk/aws-cloudwatch": "^1.101.0",
+    "@aws-cdk/aws-lambda": "^1.101.0",
+    "@aws-cdk/aws-s3": "^1.101.0",
+    "@aws-cdk/aws-s3-deployment": "^1.101.0",
+    "@aws-cdk/core": "^1.101.0",
+    "@types/node": "15.0.1",
+    "aws-cdk": "1.101.0",
+    "source-map-support": "^0.5.19",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  }
+}

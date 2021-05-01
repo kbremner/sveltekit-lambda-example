@@ -1,0 +1,40 @@
+name: CI
+
+# makes sure that workflow runs serially
+concurrency: ci
+
+on:
+  push:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: yarn install --immutable --immutable-cache
+      - run: yarn lint
+  cdk-deploy:
+    runs-on: ubuntu-latest
+    needs: [lint, unit-test, integration-test]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: yarn install --immutable --immutable-cache
+      - run: yarn build
+      - run: yarn workspaces focus scraper infra --production
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+      - run: yarn deploy
